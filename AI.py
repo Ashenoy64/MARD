@@ -204,5 +204,5 @@ Human:
                     return text
 
 
-AIOBJ = AI(api_key_1="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",
-           api_key_2='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', pluginArray=[Timer(), Task()])
+AIOBJ = AI(api_key_1="",
+           api_key_2='', pluginArray=[Timer(), Task()])
