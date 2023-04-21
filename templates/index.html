@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}
+Remote
+{% endblock %}
+
+{% block body %}
+
+<div class="flex flex-row duration-200">
+    <div class="w-1/2 flex flex-row pt-40 pr-40 text-xl text-gray-900">
+        <div>
+            <input type="range" min="0" max="100" data-for="normal"
+            class="py-2 scale-y-50 rounded-md rotate-[270deg] appearance-none dark:bg-red-300"
+            onchange="throttle(this.value)" />
+ 
+        </div>
+        <div>
+            <p class="text-xl"><span id="throttle">50</span></p>
+        </div>
+        
+
+    </div>
+
+    <div class="flex flex-col gap-4 bg-gray-600 w-3/4 rounded-full py-8 mt-4">
+        <div class="bg-green-400 w-24 p-4 text-center mx-auto rounded-full hover:bg-green-600 duration-200">
+            <button onclick="moveUp()" class="w-full text-5xl">∆</button>
+        </div>
+        <div class="flex flex-row gap-4 mx-auto align-middle">
+            <div class="bg-pink-400 w-24 p-4 text-center mx-auto  rounded-full hover:bg-pink-600 duration-200">
+                <button onclick="moveLeft()" class="w-full mb-2 text-5xl">■</button>
+            </div>
+            <div class="bg-yellow-400 w-24 p-4 p text-center mx-auto  rounded-full hover:bg-yellow-600 duration-200">
+                <button onclick="stop()" class="w-full mb-2 text-5xl">S</button>
+            </div>
+            <div class="bg-red-400 w-24 p-4 text-center mx-auto  rounded-full hover:bg-red-500 duration-200">
+                <button onclick="moveRight()" class="w-full  text-5xl">Ο</button>
+            </div>
+        </div>
+        <div class="bg-blue-400 w-24 p-4 text-center mx-auto  rounded-full hover:bg-blue-600 duration-200">
+            <button onclick="moveDown()" class="w-full  text-5xl">Χ</button>
+        </div>
+    </div>
+</div>
+<script>
+    const throttleValue = document.getElementById('throttle')
+    const url = window.location.href
+
+    function moveDown() {
+        console.log("Down")
+        $.ajax({
+            type: 'POST',
+            url: "{{url_for('remote')}}",
+            data: {
+                'what': 'down'
+            },
+            success: (data, status) => {
+                console.log(status)
+            }
+        });
+    }
+
+    function moveUp() {
+        console.log("Up")
+        $.ajax({
+            type: 'POST',
+            url: "{{url_for('remote')}}",
+            data: {
+                'what': 'up'
+            },
+            success: (data, status) => {
+                console.log(status)
+            }
+        });
+
+    }
+
+    function moveLeft() {
+        console.log("Left")
+        $.ajax({
+            type: 'POST',
+            url: "{{url_for('remote')}}",
+            data: {
+                'what': 'left'
+            },
+            success: (data, status) => {
+                console.log(status)
+            }
+        });
+
+    }
+
+    function moveRight() {
+        console.log("Right")
+        $.ajax({
+            type: 'POST',
+            url: "{{url_for('remote')}}",
+            data: {
+                'what': 'right'
+            },
+            success: (data, status) => {
+                console.log(status)
+            }
+        });
+
+    }
+    function stop() {
+        console.log("Stop")
+        $.ajax({
+            type: 'POST',
+            url: "{{url_for('remote')}}",
+            data: {
+                'what': 'stop'
+            },
+            success: (data, status) => {
+                console.log(status)
+            }
+        });
+
+    }
+
+    function throttle(e) {
+        throttleValue.innerText = e
+        $.ajax({
+            type: 'POST',
+            url: "{{url_for('remote')}}",
+            data: {
+                'what': 'power',
+                'data': e
+            },
+            success: (data, status) => {
+                console.log(status)
+            }
+        });
+
+    }
+</script>
+{% endblock %}

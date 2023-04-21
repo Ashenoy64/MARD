@@ -1,0 +1,67 @@
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #61e8ef6e;
+    }
+    
+    h1 {
+        text-align: center;
+        font-size: 3em;
+        margin-top: 50px;
+        margin-bottom: 30px;
+    }
+    .parent{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .container {
+        display: flex;
+        justify-content: space-between;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        margin-bottom: 10px;
+        width: 70%;
+    }
+    .container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    .list1{
+        font-size: 1.2em;
+        flex-basis: 50%;
+    }
+    .list2{
+        font-size: 1.2em;
+        flex-basis: 50%;
+        color:rgba(137, 43, 226, 0.724);
+    }
+    
+    .list1{
+        text-align: center;
+        flex-grow: 1;
+       
+    }
+    
+    .list2 {
+        text-align: center;
+        font-weight: bold;
+    }
+    
+    span {
+        color: blueviolet;
+    }
+</style>
+
+<h1>T<span>as</span>ks</h1>
+<div class="parent">
+    {% for j in range(0,task|length) %}
+    <div class="container">
+        <div class="list1">{{ task[j] }}</div>
+        <div class="list2">{{ day[j] }}</div>
+    </div>
+    {% endfor %}
+</div>
