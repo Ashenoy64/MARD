@@ -10,6 +10,13 @@
 <body>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <div class="p-4">
+        <ul class="flex flex-row gap-5 justify-center p-4 w-full">
+            <li class="w-12 mx-4"><a href="{{url_for('remote')}}"><span class="p-2 bg-blue-300 rounded w-12">Remote</span></a></li>
+            <li class="w-12 mx-4"><a href="{{url_for('speak')}}"><span class="p-2 bg-blue-300 rounded w-12" >Prompt</span></a></li>
+            <li class="w-12 mx-4"><a href="{{url_for('todoList')}}"><span class="p-2 bg-blue-300 rounded w-12">&nbsp;&nbsp;Todo&nbsp;&nbsp;</span></a></li>
+        </ul>
+    </div>
     {% block body %}
         
     {% endblock %} 
