@@ -111,7 +111,8 @@ Human:
         self.engine.setProperty('volume', 0.9)
         self.engine.setProperty('voice', 'english_rp+f4')
 
-        # print(self.aiInstructions)
+        self.motorControl=None
+        self.motorDuration=2
 
         # self.test()
 
@@ -148,7 +149,20 @@ Human:
             self.commandName.append(plugin.commandName)
             self.inputParams[plugin.commandName]=plugin.inputFormat
 
-        # self.aiInstructions=self.aiInstructions.format(self.commandName,self.inputParams)
+
+    def setupMotionControl(self,motorObject):
+        self.motionControl=motorObject
+
+
+    def movement(self,what):
+        if self.motorControl==None:
+            print("Bot MotorControl is Absent")
+            return
+
+        thread=threading.Thread(self.motorControl.AIContorl,args=(what,self.motorDuration))
+        thread.start()
+        thread.join()
+        
 
     def textToSpeech(self, text):
         if self.engine._inLoop:

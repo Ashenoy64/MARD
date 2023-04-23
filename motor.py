@@ -81,6 +81,18 @@ class Motor:
             GPIO.output(self.in3,GPIO.LOW)
             GPIO.output(self.in4,GPIO.LOW)
 
+    def AIControl(self,what,duration):
+        if what=='up':
+            self.forward(duration)
+        elif what=='down':
+            self.backward(duration)
+        elif what=='left':
+            self.left(duration)
+        elif what=='right':
+            self.right(duration)
+        else:
+            self.threeSixty()
+
     def stop(self):
         GPIO.output(self.in1,GPIO.LOW)
         GPIO.output(self.in2,GPIO.LOW)
@@ -134,6 +146,7 @@ class Motor:
         GPIO.output(self.in2,GPIO.LOW)
 
         GPIO.output(self.in3,GPIO.LOW)
+        GPIO.output(self.in4,GPIO.LOW)
 
     def left(self,time):
         GPIO.output(self.in1,GPIO.LOW)
@@ -141,6 +154,7 @@ class Motor:
 
         GPIO.output(self.in3,GPIO.HIGH)
         GPIO.output(self.in4,GPIO.LOW)
+        
 
         sleep(time)
         
@@ -148,6 +162,39 @@ class Motor:
         GPIO.output(self.in2,GPIO.LOW)
 
         GPIO.output(self.in3,GPIO.LOW)
+        GPIO.output(self.in4,GPIO.LOW)
+
+    def threeSixty(self):
+        GPIO.output(self.in1,GPIO.HIGH)
+        GPIO.output(self.in2,GPIO.LOW)
+
+        GPIO.output(self.in3,GPIO.LOW)
+        GPIO.output(self.in4,GPIO.HIGH)
+
+        sleep(5)
+        
+        GPIO.output(self.in1,GPIO.LOW)
+        GPIO.output(self.in2,GPIO.LOW)
+
+        GPIO.output(self.in3,GPIO.LOW)
+        GPIO.output(self.in4,GPIO.LOW)
+
+        GPIO.output(self.in1,GPIO.LOW)
+        GPIO.output(self.in2,GPIO.HIGH)
+
+        GPIO.output(self.in3,GPIO.HIGH)
+        GPIO.output(self.in4,GPIO.LOW)
+        
+
+        sleep(5)
+        
+        GPIO.output(self.in1,GPIO.LOW)
+        GPIO.output(self.in2,GPIO.LOW)
+
+        GPIO.output(self.in3,GPIO.LOW)
+        GPIO.output(self.in4,GPIO.LOW)
+        pass
+
 
     def power(self,power):
         self.p1.ChangeDutyCycle(power)
