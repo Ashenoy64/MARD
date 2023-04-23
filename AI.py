@@ -14,13 +14,28 @@ class Timer:
     def __init__(self):
         self.commandName = "SetTimer"
         self.inputFormat = '{<TimeInSeconds>}'
+        self.engine = tts.init()
+        self.engine.setProperty('rate', 150)
+        self.engine.setProperty('volume', 0.9)
+        self.engine.setProperty('voice', 'english_rp+f4')
 
     def func(self,tsec):
         time.sleep(tsec)
-        print("Time is Up")
+        if self.engine._inLoop:
+            self.engine.endLoop()
+        self.engine.say("Time is Up")
+        self.engine.runAndWait()
+
 
     def process(self, inputObj):
-        str_time = inputObj['TimeInSeconds']
+        str_time=''
+        if len(inputObj)==1:
+            str_time=inputObj.values()[0]
+        else:
+            try:
+                str_time = inputObj['TimeInSeconds']
+            except:
+                str_time='5'
         tsec = int(str_time)
         thread = threading.Thread(target=self.func, args=(tsec,))
         thread.start()
@@ -32,6 +47,7 @@ class Task:
     def __init__(self):
         self.commandName = "SetTask"
         self.inputFormat = '{"Task","When"}'
+        
 
     def process(self, obj):
         print("task", obj)
