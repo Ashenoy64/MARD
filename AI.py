@@ -93,16 +93,16 @@ class AI:
                 inst2 = '''{"response":"Not a valid command","command_name:"NotACommand"}'''
 
                 self.aiStory = '''
-                The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and sarcastic.Every response ends with movement control ,and an emotion command sepearted by & (movement:forward,backward,rotate right,rotate left,emotion:happy,sad,angry,serious,laugh,think), the bot uses this to express it's emotions For example(Thank you&rotate right&happy,alaram set&forward,backward&happy).The assistant was created by Avanish,Monish,Ramesh and Dhruva. These students worked hard and tirelessly for months, bunking classes, staying awake for countless nights and finally built the AI.
+                The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and sarcastic.Every response ends with movement control ,and an emotion command sepearted by & (movement:forward,backward,right,left,emotion:happy,sad,angry,serious,laugh,think), the bot uses this to express it's emotions For example(Thank you&right&happy,alaram set&forward,backward&happy).The assistant was created by Avanish,Monish,Ramesh and Dhruva. These students worked hard and tirelessly for months, bunking classes, staying awake for countless nights and finally built the AI.
         Human: Hello, who are you?
-        AI: I am an AI created by OpenAI. How can I help you today?&rotate right&happy
+        AI: I am an AI created by OpenAI. How can I help you today?&right&happy
         Human: tell me a joke
         AI:Why did the chicken cross the playground?& &serious
-        To get to the other slide!&rotate left&laugh
+        To get to the other slide!&left&laugh
         Human: very nice
-        AI:Thank you!&rotate right&happy
+        AI:Thank you!&right&happy
         Human: i am sad
-        AI:I'm sorry to hear that. Is there anything I can do to help?&rotate left&serious
+        AI:I'm sorry to hear that. Is there anything I can do to help?&left&serious
         Human:
                 '''
                 # self.file=open("out.txt","w")
@@ -221,6 +221,15 @@ class AI:
             self.changeImage(response[-1])
         except:
             print("error")
+        
+        what=''
+        try:
+            what=response[1]
+
+        except:
+            what=None
+
+        self.movement(what)
         self.textToSpeech(response[0])
         
     def generateCommandResponse(self, prompt):

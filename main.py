@@ -5,7 +5,7 @@ from AI import AIOBJ
 
 app = Flask(__name__)
 motor=Motor()
-
+AIOBJ.setupMotionControl(motor)
 
 @app.route("/",methods=['GET','POST'])
 def remote():
