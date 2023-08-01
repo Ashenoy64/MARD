@@ -6,15 +6,15 @@ Speech
 
 {% block body %}
 
-<div  class="flex flex-row justify-center ">
+<div class="flex flex-row justify-center ">
     <div class=" w-1/2 my-24">
-        <input id="Prompt"  class="border-black border-2 rounded p-2" placeholder="Enter Prompt" >
-        <button class="mx-4" id="button" onclick="startListening()" >Send </button>
+        <input id="Prompt" class="border-black border-2 rounded p-2" placeholder="Enter Prompt">
+        <button class="mx-4" id="button" onclick="startListening()">Send </button>
     </div>
 </div>
 <script>
     function startListening() {
-        let e=document.getElementById("Prompt").value
+        let e = document.getElementById("Prompt").value
         console.log(e)
         $.ajax({
             type: 'POST',
