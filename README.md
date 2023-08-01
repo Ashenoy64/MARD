@@ -1,5 +1,3 @@
-Sure, here's an improved version of the README with more detailed information on getting started and the correct location for creating and instantiating custom plugins:
-
 # MARD - Multi-Functional AI Robot with Raspberry Pi 5 and OpenAI
 
 MARD (Multi-Functional AI Robot with Raspberry Pi 5 and OpenAI) is an exciting hardware project developed by Monish, Avanish, Ramesh, and Druva. This project utilizes a Raspberry Pi 5, an L298 motor driver, and the power of OpenAI to create an intelligent robot that can interact with users through speech, movement, and remote control. With the ability to process voice commands and provide responses, MARD offers an engaging and interactive experience.
