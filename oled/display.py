@@ -22,7 +22,6 @@ class Display:
 		self.setupGIF()
 	def setupGIF(self):
 		if os.path.exists(self.gifFolder+"/GIFS"):
-			print("yup")
 			with open(self.gifFolder+"/GIFS","rb") as file:
 					data=pickle.load(file)
 					self.gifs=data
@@ -86,6 +85,5 @@ class Display:
 				i+=1
 				
 		else:
-			print("error")
 			return ("Error")
 
