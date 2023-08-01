@@ -86,4 +86,10 @@ MARD is an incredible showcase of how hardware and AI can merge to create an int
 
 The MARD project is open-source and licensed under the [MIT License](LICENSE).
 
-This way, readers of your README will be informed that the project is under the MIT License and can refer to the LICENSE file for more details about the licensing terms.
+## Thank You for Exploring MARD!
+
+We want to extend our sincere gratitude for checking out the MARD project. We hope you find it exciting and inspiring. If you have any feedback or suggestions, feel free to share them with us.
+
+Happy coding and have a fantastic day!
+
+---
