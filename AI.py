@@ -1,18 +1,25 @@
+
 import display
-from vosk import Model, KaldiRecognizer
-import pyaudio
-import pyttsx3 as tts
-import threading
+import os
+import sys
 import time
 import openai
-import os
+import pyaudio
+import threading
+import pyttsx3 as tts
 from io import BytesIO
-import sys
+from vosk import Model, KaldiRecognizer
+
+
 sys.path.append("./oled")
+
+
 model = Model("vosk-model-en-in-0.5")
-# wakeWordRecog=KaldiRecognizer(model,16000,'["mard","mard"]')
+
 recognizer = KaldiRecognizer(model, 16000)
 flag = True
+
+# Remainder Plugin
 
 
 class Timer:
@@ -47,6 +54,7 @@ class Timer:
         return 1
 
 
+# Todo Task Plugin
 class Task:
     def __init__(self):
         self.commandName = "SetTask"
@@ -66,25 +74,40 @@ class Task:
                 f.write("\n"+task+':'+day)
 
 
-class AI:
+class CustomPluginTemplate:
+    def __init__(self):
 
+        # When user uses words similar to commandName AI will call the function process
+        self.commandName = ''
+
+        # AI will gather data from the prompt given and pass in this format
+        self.inputFormat = ''
+
+    def process(self, obj):
+        # perform your operation here
+        pass
+
+
+class AI:
     def __init__(self, api_key_1=None, api_key_2=None, pluginArray=[]):
 
         if api_key_1 == None or api_key_2 == None:
+            print("AI needs openai api keys")
             exit()
 
         self.oled = display.Display()
         self.stopEvent = threading.Event()
-        self.startDisplay("start")
+        
         openai.api_key = api_key_1
         self.api_key_1 = api_key_1
         self.api_key_2 = api_key_2
 
-        self.aiInstructions = '''The user will provide a phrase, and  check if it is a command or not. If it is a supported command response format:{}.
+        self.aiInstructions = '''The user will provide a phrase, and  check if it is a command or not.
+        If it is a supported command response format:{}.
         If it is not a supported command,response format:{}.
         The supported commands={}  inputs required={}.
         Dont add Response or AI in the staring of response
-                '''
+        '''
 
         inst1 = '''{"positive":<response if task can be done or is  executed correctly>,"negative":<response if  not executed>, "command_name": <camel case name of the command>,
         "inputs":<inputs that the command might require from the phrase>}'''
@@ -103,13 +126,15 @@ class AI:
         Human: i am sad
         AI:I'm sorry to hear that. Is there anything I can do to help?&left&serious
         Human:
-                '''
-        # self.file=open("out.txt","w")
+        '''
+
         self.pluginsObject = []
         self.inputParams = {}
         self.commandName = []
+
         if len(pluginArray) != 0:
             self.setUpPlugin(pluginArray)
+        
         self.aiInstructions = self.aiInstructions.format(
             inst1, inst2, self.commandName, self.inputParams)
 
@@ -125,7 +150,9 @@ class AI:
         self.motorControl = None
         self.motorDuration = 2
 
+        self.startDisplay("start")
         # self.test()
+
     def startDisplay(self, name):
         self.stopEvent.clear()
         self.x = threading.Thread(target=self.DisplayImage, args=(name,))
@@ -157,7 +184,6 @@ class AI:
             if prompt == "":
                 prompt = self.SpeechTotextOffline()
                 self.changeImage("processing")
-                print("we entered")
 
             print(prompt)
             self.generateCommandResponse(prompt)
@@ -165,7 +191,9 @@ class AI:
             return True
         except Exception as e:
             print("Error ", e)
-
+            return False
+        except:
+            print("Unkown error!")
             return False
 
     def stopSpeech(self):
@@ -177,9 +205,8 @@ class AI:
             self.commandName.append(plugin.commandName)
             self.inputParams[plugin.commandName] = plugin.inputFormat
 
-        # self.aiInstructions=self.aiInstructions.format(self.commandName,self.inputParams)
 
-    def setupMotionControl(self, motorObject):
+    def setupMotionControl(self, motorObject=None):
         self.motionControl = motorObject
 
     def movement(self, what):
@@ -247,7 +274,6 @@ class AI:
 
     def interpretTheResponse(self, aiResponse, prompt):
         responseObject = eval(aiResponse)
-        # self.file.write('\n'+responseObject)
         commandName = responseObject['command_name']
 
         if commandName == 'NotACommand':
@@ -263,7 +289,6 @@ class AI:
             else:
                 self.changeImage("sad")
                 self.textToSpeech(responseObject['negative'])
-            #
         else:
             self.changeImage("sad")
             self.textToSpeech(responseObject['negative'])
@@ -283,5 +308,8 @@ class AI:
                     return text
 
 
-AIOBJ = AI(api_key_1="",
-           api_key_2='', pluginArray=[Timer(), Task()])
+AIOBJ = AI(api_key_1="", api_key_2='', pluginArray=[Timer(), Task()]) # pass your custom plugins here
+
+
+if __name__ == "__main__":
+    pass
